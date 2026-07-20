@@ -112,11 +112,13 @@
     <p class="updated">Help &amp; setup guide · updated July 2026</p>
 
     <p class="summary">
-        <strong>In short:</strong> Ask an Echo to play any NRK radio channel live, or to play the
-        most recent NRK news bulletin. Say <em>&ldquo;Alexa, open Norwegian Radio&rdquo;</em> for
-        NRK P1 Stor-Oslo, <em>&ldquo;&hellip;to play P2&rdquo;</em> for another channel, or
-        <em>&ldquo;&hellip;for latest news&rdquo;</em> for the newest bulletin that has finished
-        airing.
+        <strong>In short:</strong> Ask an Echo to play any NRK radio channel live, the most
+        recent NRK news bulletin, or the latest episode of a favourite programme. Say
+        <em>&ldquo;Alexa, open Norwegian Radio&rdquo;</em> for NRK P1 Stor-Oslo,
+        <em>&ldquo;&hellip;to play P2&rdquo;</em> for another channel,
+        <em>&ldquo;&hellip;for latest news&rdquo;</em> for the newest bulletin, or
+        <em>&ldquo;&hellip;to play Andakten&rdquo;</em> for a programme. The latest bulletin is
+        also available in Alexa&rsquo;s <a href="#briefing">Flash Briefing</a>.
     </p>
 
     <p class="note">
@@ -128,10 +130,12 @@
 
     <h2>What it does</h2>
     <p>
-        Two things. It plays <strong>NRK&rsquo;s live radio channels</strong> — all 28 of them,
-        including the district P1 variants — straight from NRK&rsquo;s own streams. And it plays
-        the <strong>latest news bulletin</strong>: you ask, and it finds the most recent
-        <em>NRK Nyheter</em> that has actually finished broadcasting and plays that.
+        Three things. It plays <strong>NRK&rsquo;s live radio channels</strong> — all 28 of them,
+        including the district P1 variants — straight from NRK&rsquo;s own streams. It plays the
+        <strong>latest news bulletin</strong>: you ask, and it finds the most recent
+        <em>NRK Nyheter</em> that has actually finished broadcasting and plays that. And it plays
+        the <strong>newest episode of named programmes</strong> — Andakten, Abels t&aring;rn,
+        Kjapt oppdatert, Dagsnytt 18 — from NRK&rsquo;s podcast catalogue.
     </p>
     <p>
         Nothing is downloaded or stored. The Echo streams directly from NRK, the same way the
@@ -162,6 +166,8 @@
     <span class="say"><code>Alexa, ask Norwegian Radio to play P2</code></span>
     <span class="say"><code>Alexa, ask Norwegian Radio to play Klassisk</code></span>
     <span class="say"><code>Alexa, ask Norwegian Radio for latest news</code></span>
+    <span class="say"><code>Alexa, ask Norwegian Radio to play Andakten</code></span>
+    <span class="say"><code>Alexa, ask Norwegian Radio to play Abels tårn</code></span>
     <span class="say"><code>Alexa, ask Norwegian Radio which channels</code></span>
     <span class="say"><code>Alexa, stop</code> · <code>Alexa, pause</code> · <code>Alexa, resume</code></span>
 
@@ -194,6 +200,21 @@
         Alltid Nyheter.
     </p>
 
+    <h2>Programmes</h2>
+    <p>
+        Named programmes play their <strong>newest available episode</strong> from NRK&rsquo;s
+        podcast catalogue. Currently taught:
+    </p>
+    <div class="chan">
+        <span>Andakten</span><span>Abels t&aring;rn</span><span>Kjapt oppdatert</span><span>Dagsnytt 18</span>
+    </div>
+    <p>
+        Podcast episodes support proper pause and resume — <em>&ldquo;Alexa, pause&rdquo;</em>
+        and later <em>&ldquo;Alexa, resume&rdquo;</em> continues where you left off. For
+        Norwegian titles the English pronunciation is forgiving: <em>&ldquo;abels
+        tower&rdquo;</em> works for Abels t&aring;rn.
+    </p>
+
     <h2>About &ldquo;latest news&rdquo;</h2>
     <p>
         The skill plays the most recent bulletin that has <strong>finished</strong> airing. At
@@ -207,10 +228,37 @@
         window with longer programmes. P2 carries hourly bulletins straight through. Searching
         both means the newest bulletin is rarely more than an hour old.
     </p>
+    <p>
+        Recent bulletins are played from NRK&rsquo;s <strong>live stream copy</strong> rather
+        than the broadcast archive. That matters for two reasons: the archive copy only appears
+        20&ndash;35 minutes after broadcast, and it is mastered much quieter. The live copy is
+        available within seconds and plays at normal volume. Bulletins run around the clock —
+        hourly through the night — so the newest one is rarely far away.
+    </p>
     <p class="tip">
         <strong>If the news sounds older than you expect, it probably is — and correctly so.</strong>
-        NRK&rsquo;s schedule genuinely has gaps. The skill will never invent a bulletin that has
-        not aired, and it will not play one that is still on air.
+        NRK&rsquo;s schedule genuinely has gaps (outside summer, P1 has none between 08:30 and
+        15:00 — which is why P2 is searched too). The skill will never invent a bulletin that
+        has not aired, and it will not play one that is still on air.
+    </p>
+
+    <h2 id="briefing">Flash Briefing</h2>
+    <p>
+        A companion skill, <strong>NRK News Briefing</strong>, adds the latest NRK bulletin to
+        Alexa&rsquo;s Flash Briefing — so <em>&ldquo;Alexa, play flash briefing&rdquo;</em>
+        includes NRK news alongside your other sources. (It must be a separate skill: Amazon
+        does not allow a briefing to share a skill with anything else.)
+    </p>
+    <p>
+        Enable it once in the Alexa app: <em>Your Skills &rarr; Dev &rarr; NRK News Briefing</em>,
+        then order it under <em>Settings &rarr; News &rarr; Flash Briefing</em>. In the source
+        list it appears with a technical id instead of its name — a quirk of unpublished skills;
+        it works regardless.
+    </p>
+    <p>
+        The briefing updates every 15 minutes and Amazon caches it for up to another 15, so it
+        can trail the newest bulletin by up to half an hour. Asking the main skill for
+        <em>latest news</em> is always the freshest route.
     </p>
 
     <h2>Troubleshooting</h2>
@@ -235,8 +283,15 @@
         </tr>
         <tr>
             <td>News is quieter than the live channels</td>
-            <td>Broadcast recordings are mastered quieter than live streams. The skill prefers the
-                louder source when it can.</td>
+            <td>Should no longer happen: bulletins play from the live stream copy at normal
+                volume. If one is quiet, the skill fell back to NRK&rsquo;s archive copy —
+                mastered quieter — because the live copy was unavailable.</td>
+        </tr>
+        <tr>
+            <td>An Echo Show keeps showing the radio card after playback</td>
+            <td>The Show keeps the last media card as its touch-wake screen; this is the
+                device&rsquo;s own behaviour and harmless. Swipe it away, or leave it — tapping
+                it simply resumes correctly.</td>
         </tr>
         <tr>
             <td>Playback stops after a long time</td>
@@ -261,9 +316,10 @@
         <strong>What it connects to.</strong> To find out what is playing and to build a playable
         link, the skill contacts NRK&rsquo;s public programme service
         (<code>psapi.nrk.no</code>) and NRK&rsquo;s stream directory (<code>lyd.nrk.no</code>).
-        For recent news bulletins it also calls a small helper page run by the developer on
-        Cloudflare, which returns nothing but a list of NRK addresses. None of these requests
-        carry any information about you — only which channel or programme was asked for.
+        For recent news bulletins and the Flash Briefing, a small helper page run by the
+        developer on Cloudflare builds playing instructions and the briefing feed — text files
+        containing nothing but lists of NRK addresses. None of these requests carry any
+        information about you — only which channel or programme was asked for.
     </p>
     <p>
         <strong>Who sees what.</strong> The audio itself is fetched by your Echo directly from
