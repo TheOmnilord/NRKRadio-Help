@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="NRK Radio">
+  <!-- Full-bleed square: Amazon applies its own rounded-corner mask to skill icons,
+       so the artwork must not round its own corners. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a9469"/>
+      <stop offset="1" stop-color="#22694a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- Broadcast arcs radiating from a transmitter point. No text: it would be
+       illegible at 108px and cannot localise. -->
+  <g fill="none" stroke="#ffffff" stroke-linecap="round" opacity="0.95">
+    <circle cx="256" cy="330" r="34" fill="#ffffff" stroke="none"/>
+    <path d="M188 262a96 96 0 0 1 136 0" stroke-width="26"/>
+    <path d="M144 218a158 158 0 0 1 224 0" stroke-width="26" opacity="0.72"/>
+    <path d="M100 174a220 220 0 0 1 312 0" stroke-width="26" opacity="0.45"/>
+  </g>
+</svg>

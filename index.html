@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NRK Radio — Help &amp; Setup</title>
+    <meta name="description" content="Help and setup guide for the NRK Radio Alexa skill: live NRK radio channels on an Echo, and the latest news bulletin on request.">
+    <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            background: #fafafa;
+        }
+        h1 { font-size: 28px; margin-bottom: 8px; color: #1a1a1a; }
+        .titlebar { display: flex; align-items: center; gap: 14px; }
+        .titlebar h1 { margin-bottom: 8px; }
+        .mark { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+        h2 { font-size: 20px; margin-top: 32px; margin-bottom: 12px; color: #1a1a1a; }
+        h3 { font-size: 16px; margin-top: 20px; margin-bottom: 8px; color: #1a1a1a; }
+        p { margin-bottom: 16px; }
+        .updated { font-size: 14px; color: #888; margin-bottom: 24px; }
+        .summary {
+            background: #eaf3ee;
+            border-left: 4px solid #2f7d55;
+            padding: 16px 20px;
+            margin-bottom: 32px;
+            border-radius: 0 8px 8px 0;
+        }
+        .tip {
+            background: #fff8e6;
+            border-left: 4px solid #e0a800;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            border-radius: 0 8px 8px 0;
+            font-size: 15px;
+        }
+        .note {
+            background: #f1f1f4;
+            border-left: 4px solid #9a9aa6;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            border-radius: 0 8px 8px 0;
+            font-size: 15px;
+        }
+        ul { margin-left: 24px; margin-bottom: 16px; }
+        li { margin-bottom: 8px; }
+        .footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #888;
+        }
+        a { color: #2f7d55; }
+        strong { color: #1a1a1a; }
+        code {
+            font-family: 'SF Mono', Menlo, Consolas, monospace;
+            font-size: 0.9em;
+            background: #eef1f4;
+            padding: 2px 7px;
+            border-radius: 4px;
+            color: #1a1a1a;
+        }
+        .say { display: block; margin: 6px 0; }
+        .say code { background: #e9f2ec; }
+        .tolink { font-size: 13px; font-weight: 400; color: #999; text-decoration: none; margin-left: 10px; vertical-align: middle; }
+        .tolink:hover { color: #2f7d55; text-decoration: underline; }
+        .steps { counter-reset: step; list-style: none; margin-left: 0; }
+        .steps li {
+            counter-increment: step;
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 14px;
+        }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0; top: 0;
+            width: 26px; height: 26px;
+            background: #2f7d55;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 14px; font-weight: 600;
+            display: flex; align-items: center; justify-content: center;
+        }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 15px; }
+        th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e4e4e8; vertical-align: top; }
+        th { color: #1a1a1a; font-size: 14px; }
+        .chan { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .chan span {
+            background: #eef1f4; border-radius: 6px; padding: 4px 10px;
+            font-size: 14px; font-family: 'SF Mono', Menlo, Consolas, monospace;
+        }
+        @media (max-width: 480px) {
+            body { padding: 28px 18px; }
+            h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="titlebar">
+        <img class="mark" src="assets/icon.svg" alt="" width="52" height="52">
+        <h1 id="top">NRK Radio</h1>
+    </div>
+    <p class="updated">Help &amp; setup guide · updated July 2026</p>
+
+    <p class="summary">
+        <strong>In short:</strong> Ask an Echo to play any NRK radio channel live, or to play the
+        most recent NRK news bulletin. Say <em>&ldquo;Alexa, open Norwegian Radio&rdquo;</em> for
+        NRK P1 Stor-Oslo, <em>&ldquo;&hellip;to play P2&rdquo;</em> for another channel, or
+        <em>&ldquo;&hellip;for latest news&rdquo;</em> for the newest bulletin that has finished
+        airing.
+    </p>
+
+    <p class="note">
+        This is a <strong>personal, unpublished skill</strong> — a private project running only on
+        its developer&rsquo;s own Echo devices. It is <strong>not affiliated with, endorsed by, or
+        connected to NRK</strong>, and it is not available to install. NRK&rsquo;s livestreams are
+        made available for private use; this page documents a private setup, not a service.
+    </p>
+
+    <h2>What it does</h2>
+    <p>
+        Two things. It plays <strong>NRK&rsquo;s live radio channels</strong> — all 28 of them,
+        including the district P1 variants — straight from NRK&rsquo;s own streams. And it plays
+        the <strong>latest news bulletin</strong>: you ask, and it finds the most recent
+        <em>NRK Nyheter</em> that has actually finished broadcasting and plays that.
+    </p>
+    <p>
+        Nothing is downloaded or stored. The Echo streams directly from NRK, the same way the
+        NRK Radio app does.
+    </p>
+
+    <h2>First-time setup</h2>
+    <ol class="steps">
+        <li>
+            <strong>Enable the skill</strong> on the Amazon account your Echo devices are signed
+            in to. Because it is unpublished, it appears in the Alexa app under
+            <em>Your Skills</em> with a <strong>Dev</strong> badge.
+        </li>
+        <li>
+            <strong>Check the device language.</strong> The skill answers in
+            <strong>English (UK)</strong> and <strong>English (US)</strong>. Alexa has no Norwegian
+            language, so the commands are English — the radio itself is of course Norwegian.
+        </li>
+        <li>
+            <strong>Try it:</strong> say <em>&ldquo;Alexa, open Norwegian Radio.&rdquo;</em>
+        </li>
+    </ol>
+
+    <h2>Talking to the skill</h2>
+    <p>The invocation name is <strong>&ldquo;Norwegian Radio&rdquo;</strong>.</p>
+
+    <span class="say"><code>Alexa, open Norwegian Radio</code> — starts NRK P1 Stor-Oslo</span>
+    <span class="say"><code>Alexa, ask Norwegian Radio to play P2</code></span>
+    <span class="say"><code>Alexa, ask Norwegian Radio to play Klassisk</code></span>
+    <span class="say"><code>Alexa, ask Norwegian Radio for latest news</code></span>
+    <span class="say"><code>Alexa, ask Norwegian Radio which channels</code></span>
+    <span class="say"><code>Alexa, stop</code> · <code>Alexa, pause</code> · <code>Alexa, resume</code></span>
+
+    <p class="tip">
+        <strong>Use &ldquo;ask&rdquo;, not &ldquo;open&rdquo;, when naming a channel.</strong>
+        <em>&ldquo;Alexa, open Norwegian Radio to play P2&rdquo;</em> will not work —
+        <em>open</em> can only launch a skill, it cannot carry an instruction. <em>Ask</em> and
+        <em>tell</em> can.
+    </p>
+
+    <h2>Channels</h2>
+    <p>National channels:</p>
+    <div class="chan">
+        <span>P1</span><span>P1+</span><span>P2</span><span>P3</span><span>P3 Musikk</span>
+        <span>mP3</span><span>Alltid Nyheter</span><span>Radio Super</span><span>Klassisk</span>
+        <span>S&aacute;mi radio</span><span>Jazz</span><span>Folkemusikk</span><span>Sport</span>
+    </div>
+    <p>District P1 channels:</p>
+    <div class="chan">
+        <span>Stor-Oslo</span><span>Buskerud</span><span>Finnmark</span><span>Hordaland</span>
+        <span>Innlandet</span><span>M&oslash;re og Romsdal</span><span>Nordland</span>
+        <span>Rogaland</span><span>Sogn og Fjordane</span><span>S&oslash;rlandet</span>
+        <span>Telemark</span><span>Troms</span><span>Tr&oslash;ndelag</span><span>Vestfold</span>
+        <span>&Oslash;stfold</span>
+    </div>
+    <p class="tip">
+        Norwegian channel names spoken in English are the fiddly part. If a name is not
+        recognised, try the English version — <em>&ldquo;classical&rdquo;</em> for Klassisk,
+        <em>&ldquo;folk music&rdquo;</em> for Folkemusikk, <em>&ldquo;always news&rdquo;</em> for
+        Alltid Nyheter.
+    </p>
+
+    <h2>About &ldquo;latest news&rdquo;</h2>
+    <p>
+        The skill plays the most recent bulletin that has <strong>finished</strong> airing. At
+        15:45 that is the 15:00 bulletin; on a weekday at 07:36 it is <em>Dagsnytt 07:30</em>
+        rather than 07:00, because it follows the actual schedule rather than assuming a fixed
+        hourly rhythm.
+    </p>
+    <p>
+        It looks at both <strong>P1 and P2</strong>. This matters more than it sounds: outside
+        summer, P1 broadcasts no bulletins at all between roughly 08:30 and 15:00, filling the
+        window with longer programmes. P2 carries hourly bulletins straight through. Searching
+        both means the newest bulletin is rarely more than an hour old.
+    </p>
+    <p class="tip">
+        <strong>If the news sounds older than you expect, it probably is — and correctly so.</strong>
+        NRK&rsquo;s schedule genuinely has gaps. The skill will never invent a bulletin that has
+        not aired, and it will not play one that is still on air.
+    </p>
+
+    <h2>Troubleshooting</h2>
+    <table>
+        <tr>
+            <th>What happens</th>
+            <th>Why, and what to try</th>
+        </tr>
+        <tr>
+            <td>Alexa says she doesn&rsquo;t know that skill</td>
+            <td>The device language must be English (UK) or English (US), and the Echo must be on
+                the same Amazon account the skill was built on.</td>
+        </tr>
+        <tr>
+            <td>A channel name isn&rsquo;t recognised</td>
+            <td>Try the English name, or spell it out (<em>&ldquo;P one&rdquo;</em>,
+                <em>&ldquo;P three musikk&rdquo;</em>). Not every district name is taught yet.</td>
+        </tr>
+        <tr>
+            <td>&ldquo;Open &hellip; to play P2&rdquo; does nothing useful</td>
+            <td>Use <em>ask</em> instead of <em>open</em> — see the tip above.</td>
+        </tr>
+        <tr>
+            <td>News is quieter than the live channels</td>
+            <td>Broadcast recordings are mastered quieter than live streams. The skill prefers the
+                louder source when it can.</td>
+        </tr>
+        <tr>
+            <td>Playback stops after a long time</td>
+            <td>Live radio is an endless stream; a network hiccup ends it rather than pausing.
+                Just start it again.</td>
+        </tr>
+    </table>
+
+    <h2 id="privacy">Privacy &amp; data <a class="tolink" href="#top">&uarr; top</a></h2>
+    <p>
+        <strong>Who is responsible.</strong> This skill is an independent, personal project by its
+        developer, who is the data controller for the limited data described here. Contact:
+        <a href="mailto:sveinungsvea@gmail.com">sveinungsvea@gmail.com</a>.
+    </p>
+    <p>
+        <strong>What is stored.</strong> Nothing. The skill keeps no account, no profile, no
+        history and no settings. It does not use the Reminders, Timers, notifications, location or
+        address APIs, and it asks for no permissions. Each request is answered and forgotten;
+        between requests it holds nothing about you.
+    </p>
+    <p>
+        <strong>What it connects to.</strong> To find out what is playing and to build a playable
+        link, the skill contacts NRK&rsquo;s public programme service
+        (<code>psapi.nrk.no</code>) and NRK&rsquo;s stream directory (<code>lyd.nrk.no</code>).
+        For recent news bulletins it also calls a small helper page run by the developer on
+        Cloudflare, which returns nothing but a list of NRK addresses. None of these requests
+        carry any information about you — only which channel or programme was asked for.
+    </p>
+    <p>
+        <strong>Who sees what.</strong> The audio itself is fetched by your Echo directly from
+        NRK&rsquo;s servers, not routed through the skill. NRK therefore sees an ordinary
+        listener connection, as it would from any radio app. Amazon processes your speech to run
+        the skill, under Amazon&rsquo;s own privacy policy. The developer&rsquo;s helper page and
+        Amazon&rsquo;s logs may record ordinary technical request logs.
+    </p>
+    <p>
+        <strong>Not shared.</strong> Nothing is sold, shared with third parties, or used for
+        advertising or profiling. The skill is not directed to children.
+    </p>
+    <p>
+        <strong>Your control.</strong> Because nothing is stored, there is nothing to delete or
+        export. Disabling the skill in the Alexa app stops it entirely. To ask anything about
+        this, contact the developer at the address above.
+    </p>
+
+    <h2 id="terms">Terms &amp; content <a class="tolink" href="#top">&uarr; top</a></h2>
+    <p>
+        <strong>The audio is NRK&rsquo;s, not this skill&rsquo;s.</strong> All programming,
+        streams and recordings belong to NRK (Norsk rikskringkasting AS) and are subject to
+        NRK&rsquo;s own terms. NRK provides its livestreams for private use; this skill is a
+        private, unpublished tool that plays them for one household, and it neither copies,
+        stores, redistributes nor modifies any NRK content.
+    </p>
+    <p>
+        <strong>No affiliation.</strong> This project is not affiliated with, endorsed by, or
+        supported by NRK or Amazon. &ldquo;NRK&rdquo; and the channel names are used descriptively
+        to identify the stations being played.
+    </p>
+    <p>
+        <strong>No warranty.</strong> The skill is provided as-is for personal use, with no
+        guarantee of availability or fitness for any purpose. It depends on services outside its
+        control and can stop working at any time.
+    </p>
+
+    <p class="footer">
+        NRK Radio — a personal Alexa skill · not affiliated with NRK or Amazon<br>
+        Questions: <a href="mailto:sveinungsvea@gmail.com">sveinungsvea@gmail.com</a>
+    </p>
+
+</body>
+</html>
